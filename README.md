@@ -9,7 +9,7 @@ This repository contains the schematic design, physical layout, and post-layout 
 | **DC Gain** | 60 dB (1000) | 45 dB |
 | **Gain Bandwidth Product (GBW)** | 30 MHz | 27 MHz |
 | **Phase Margin (PM)** | ≥ 60° | 68° |
-| **Slew Rate** | 20 V/µs |  V/µs |
+| **Slew Rate** | 20 V/µs | 17.42 V/µs |
 | **Max Common-Mode Input (ICMR+)** | 1.6 V | [Insert Result] V |
 | **Min Common-Mode Input (ICMR-)** | 0.8 V | [Insert Result] V |
 | **Load Capacitance (C_L)** | 2 pF | 2 pF |
