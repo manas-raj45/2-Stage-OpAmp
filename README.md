@@ -10,10 +10,10 @@ This repository contains the schematic design, physical layout, and post-layout 
 | **Gain Bandwidth Product (GBW)** | 30 MHz | 27 MHz |
 | **Phase Margin (PM)** | ≥ 60° | 68° |
 | **Slew Rate** | 20 V/µs | 17.42 V/µs |
-| **Max Common-Mode Input (ICMR+)** | 1.6 V | [Insert Result] V |
-| **Min Common-Mode Input (ICMR-)** | 0.8 V | [Insert Result] V |
+| **Max Common-Mode Input (ICMR+)** | 1.6 V | 1.587 V |
+| **Min Common-Mode Input (ICMR-)** | 0.8 V | 0.838 V |
 | **Load Capacitance (C_L)** | 2 pF | 2 pF |
-| **Power Dissipation** | ≤ 300 µW | [Insert Result] µW |
+| **Power Dissipation** | ≤ 300 µW | 309 µW |
 
 ---
 ## 1. Schematic Design and Biasing
