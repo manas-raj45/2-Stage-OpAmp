@@ -6,49 +6,49 @@ This repository contains the schematic design, physical layout, and post-layout 
 
 | Parameter | Target Specification | Post-Layout (PEX) Result |
 | :--- | :--- | :--- |
-| **DC Gain** | 60 dB (1000) | 45 dB |
+| **DC Gain** | 60 dB (1000) | 45 dB (53 dB Pre-Layout) |
 | **Gain Bandwidth Product (GBW)** | 30 MHz | 27 MHz |
 | **Phase Margin (PM)** | ≥ 60° | 68° |
+| **Common-Mode Rejection Ratio (CMRR)** | - | 66 dB |
 | **Slew Rate** | 20 V/µs | 17.42 V/µs |
 | **Max Common-Mode Input (ICMR+)** | 1.6 V | 1.66 V |
 | **Min Common-Mode Input (ICMR-)** | 0.8 V | 0.838 V |
+| **Calculated Headroom** | - | 0.59 V |
+| **Output Swing** | - | 1.2 V |
 | **Load Capacitance (C_L)** | 2 pF | 2 pF |
 | **Power Dissipation** | ≤ 300 µW | 309 µW |
 
 ---
 ## 1. Schematic Design and Biasing
-The core architecture is a two-stage operational amplifier featuring a differential input pair with a current mirror load, followed by a common-source second stage for maximum voltage swing. 
-* **Transconductance Tuning:** Input differential pair widths ($W$) were iteratively sized to maximize $g_m$ while preserving bandwidth.
-* **Output Impedance:** The lengths ($L$) of the first-stage PMOS loads were scaled to maximize $r_o$, establishing the dominant mid-band gain.
-> **Note on Images:** Please ensure your browser has loaded the images below. If an image is missing, refresh the page.
-> <img width="1181" height="638" alt="schematic_region of op" src="https://github.com/user-attachments/assets/6707be0a-ee93-40d5-b1f8-df6c8d1b0950" />
+The core architecture is a two-stage operational amplifier featuring a differential input pair with a current mirror load, followed by a common-source second stage.
+* **Pre-Layout Performance:** The ideal schematic successfully achieved a **DC Gain of 53 dB** before layout parasitics were introduced.
+* **The Problem (Instability):** Uncompensated two-stage op-amps have two high-impedance nodes that create two low-frequency poles, leading to poor phase margin, ringing, and oscillation.
+* **The Solution (Miller Compensation):** A capacitor was added between the first and second stages. Using pole-splitting, this pushes the dominant pole lower and the non-dominant pole past the unity-gain frequency, achieving a solid **68° Phase Margin**.
+* **Biasing & Voltage Swing:** Transistor dimensions and bias currents were sized to explicitly maintain a **Calculated Headroom of 0.59 V**. This guarantees all MOSFETs remain in saturation while allowing a clean **Output Swing of 1.2 V**.
+<br>
+<img width="1181" height="638" alt="schematic_region of op" src="https://github.com/user-attachments/assets/6707be0a-ee93-40d5-b1f8-df6c8d1b0950" />
+<img width="1176" height="635" alt="opamp_schematic" src="https://github.com/user-attachments/assets/ade7ef6d-3273-49b2-87ca-5255a26cccc1" />
+<img width="996" height="789" alt="gain and phase" src="https://github.com/user-attachments/assets/4608aeeb-78ed-402a-a92f-de440fd605c1" />
+<br>
 
-> <img width="1176" height="635" alt="opamp_schematic" src="https://github.com/user-attachments/assets/ade7ef6d-3273-49b2-87ca-5255a26cccc1" />
-
-**[INSERT SCHEMATIC IMAGE HERE]**
-*Use the syntax: `![Ideal Schematic](link_to_your_image.jpg)`*
----
 ## 2. Physical Layout & Parasitic Extraction (PEX)
-The physical layout was drafted to strictly adhere to Design Rule Checks (DRC) and Layout vs. Schematic (LVS) matching. 
-Upon successful LVS, parasitic extraction was performed. A nominal drop of ~[Insert dB drop] dB in open-loop gain was observed and mathematically validated as the expected consequence of layout-induced parasitic routing resistance and internal node capacitance.
-**[INSERT LAYOUT IMAGE HERE]**
-*Use the syntax: `![Physical Layout](link_to_your_layout_image.jpg)`*
----
+* **Post-Layout Gain Drop:** DC Gain dropped from the pre-layout **53 dB** down to **45 dB** after PEX.
+* **Reason for Variation:** Physical layout extraction introduces real-world routing parasitics, specifically overlapping metal layer capacitances and trace resistances. This parasitic loading lowers the effective output impedance of the internal nodes, inherently reducing the overall gain and bandwidth.
+<br>
+<img width="1666" height="486" alt="drc" src="https://github.com/user-attachments/assets/267b52aa-505a-4208-9b00-9f7a01fdb473" />
+<img width="1646" height="570" alt="lvs" src="https://github.com/user-attachments/assets/4b3129a0-fda1-488b-a069-d65989c85313" />
+<img width="1657" height="496" alt="pex" src="https://github.com/user-attachments/assets/2db37272-1a64-47e4-af32-526953c4bf20" />
+<br>
+
 ## 3. PVT Corner & Sensitivity Analysis
-A rigorous 9-corner PVT sweep was conducted on the post-layout extracted view to simulate real-world silicon stress conditions. 
-* **Temperatures:** -40°C, 27°C, 125°C
-* **Supply Voltages:** 1.62 V (-10%), 1.8 V (Nominal), 1.98 V (+10%)
-### Extreme Corner Boundary Condition (1.62V / 125°C)
-During initial testing, the extreme boundary corner ($1.62 \text{ V}$ and $125^\circ\text{C}$) caused the tail current sink to fall out of saturation. This was diagnosed as a voltage headroom crush: 
-1. Elevated temperatures increased the required $V_{dsat}$ due to lattice scattering and reduced electron mobility.
-2. The restricted $1.62 \text{ V}$ supply compressed the available $V_{ds}$.
-**The Engineering Fix:** The layout was successfully revised by scaling the width ($W$) of the tail transistor and its current mirror reference. This effectively lowered the required $V_{dsat}$, restoring the transistor to the saturation region and rescuing the amplifier's gain without compromising the current ratio.
-**[INSERT PVT GRAPH IMAGE HERE]**
-*Use the syntax: `![PVT Corner Analysis](link_to_your_pvt_graph.jpg)`*
-*(The high-frequency pole-zero doublets visible in the roll-off are the verified result of parasitic extraction networks).*
----
-## Tools Used
-* **Cadence Virtuoso** (Schematic Editor, Layout Suite)
-* **Analog Design Environment (ADE L)**
-* **Spectre Simulator**
-* **Assura / Calibre** (DRC, LVS, PEX)
+A 9-corner PVT sweep was conducted on the extracted view to verify stability across manufacturing and environmental stresses.
+* **Temperatures:** -40°C, 42.5°C, 125°C
+* **Supply Voltages:** 1.75 V, 1.8 V (Nominal), 1.95 V
+* **PVT Variations Explained:** The spread in the gain and phase plots is expected behavior. Temperature swings alter carrier mobility, supply variations shift available overdrive voltage, and process corners (Fast-Fast/Slow-Slow) shift MOSFET threshold voltages. These factors combined alter the DC operating point, but the amplifier remains fully functional and stable across all tested boundaries.
+* **Bandwidth Temperature Dependence:** As temperature rises, carrier mobility degrades, leading to a reduction in transconductance. This directly impacts the bandwidth, demonstrating a clear inverse relationship:
+  * **-40°C:** 80 KHz
+  * **42.5°C:** 62 KHz
+  * **125°C:** 51 KHz
+<br>
+<img width="989" height="665" alt="pvt gain" src="https://github.com/user-attachments/assets/e1eca729-9b1b-4d70-9959-3864463df8b0" />
+<img width="761" height="596" alt="pvt phase deg" src="https://github.com/user-attachments/assets/6a428c23-8367-4153-b799-43bd180dd9b0" />
