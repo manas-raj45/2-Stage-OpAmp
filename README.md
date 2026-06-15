@@ -10,7 +10,7 @@ This repository contains the schematic design, physical layout, and post-layout 
 | **Gain Bandwidth Product (GBW)** | 30 MHz | 27 MHz |
 | **Phase Margin (PM)** | ≥ 60° | 68° |
 | **Slew Rate** | 20 V/µs | 17.42 V/µs |
-| **Max Common-Mode Input (ICMR+)** | 1.6 V | 1.587 V |
+| **Max Common-Mode Input (ICMR+)** | 1.6 V | 1.66 V |
 | **Min Common-Mode Input (ICMR-)** | 0.8 V | 0.838 V |
 | **Load Capacitance (C_L)** | 2 pF | 2 pF |
 | **Power Dissipation** | ≤ 300 µW | 309 µW |
@@ -21,6 +21,10 @@ The core architecture is a two-stage operational amplifier featuring a different
 * **Transconductance Tuning:** Input differential pair widths ($W$) were iteratively sized to maximize $g_m$ while preserving bandwidth.
 * **Output Impedance:** The lengths ($L$) of the first-stage PMOS loads were scaled to maximize $r_o$, establishing the dominant mid-band gain.
 > **Note on Images:** Please ensure your browser has loaded the images below. If an image is missing, refresh the page.
+> <img width="1181" height="638" alt="schematic_region of op" src="https://github.com/user-attachments/assets/6707be0a-ee93-40d5-b1f8-df6c8d1b0950" />
+
+> <img width="1176" height="635" alt="opamp_schematic" src="https://github.com/user-attachments/assets/ade7ef6d-3273-49b2-87ca-5255a26cccc1" />
+
 **[INSERT SCHEMATIC IMAGE HERE]**
 *Use the syntax: `![Ideal Schematic](link_to_your_image.jpg)`*
 ---
