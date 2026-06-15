@@ -18,7 +18,7 @@ This repository contains the schematic design, physical layout, and post-layout 
 | **Load Capacitance (C_L)** | 2 pF | 2 pF |
 | **Power Dissipation** | ≤ 300 µW | 309 µW |
 
----
+
 ## 1. Schematic Design and Biasing
 The core architecture is a two-stage operational amplifier featuring a differential input pair with a current mirror load, followed by a common-source second stage.
 * **Pre-Layout Performance:** The ideal schematic successfully achieved a **DC Gain of 53 dB** before layout parasitics were introduced.
@@ -34,7 +34,7 @@ The core architecture is a two-stage operational amplifier featuring a different
 
 ## 2. Physical Layout & Parasitic Extraction (PEX)
 Transitioning from an ideal schematic to an extracted layout introduces physical parasitics (resistance and capacitance), altering the loop dynamics. 
-### 📉 Post-Layout (PEX) Observations
+### Post-Layout (PEX) Observations
 * **Observation:** **DC Gain dropped from 53 dB (Schematic) to 45 dB (PEX).**
   **Why:** Physical layout extraction introduces real-world routing parasitics, specifically overlapping metal layer capacitances and trace resistances. This parasitic loading lowers the effective output impedance of the internal nodes, inherently reducing the overall gain.
 * **Observation:** **Slew Rate (SR) decreased from the target 20 V/µs to 17.42 V/µs.**
@@ -45,6 +45,7 @@ Transitioning from an ideal schematic to an extracted layout introduces physical
 <img width="1666" height="486" alt="drc" src="https://github.com/user-attachments/assets/267b52aa-505a-4208-9b00-9f7a01fdb473" />
 <img width="1646" height="570" alt="lvs" src="https://github.com/user-attachments/assets/4b3129a0-fda1-488b-a069-d65989c85313" />
 <img width="1657" height="496" alt="pex" src="https://github.com/user-attachments/assets/2db37272-1a64-47e4-af32-526953c4bf20" />
+<img width="1681" height="620" alt="post layout sim" src="https://github.com/user-attachments/assets/d0ea752b-2005-4c37-a09b-f63d2720ea06" />
 <br>
 
 
