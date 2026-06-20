@@ -42,10 +42,10 @@ Transitioning from an ideal schematic to an extracted layout introduces physical
 * **Observation:** **Gain Bandwidth Product (GBW) dropped from 30 MHz to 27 MHz.**
   **Why:** The combination of finite parasitic metal resistance and increased node capacitances formed accidental low-pass filter networks, causing earlier high-frequency gain roll-off.
 <br>
-<img width="1666" height="486" alt="drc" src="https://github.com/user-attachments/assets/267b52aa-505a-4208-9b00-9f7a01fdb473" />
-<img width="1646" height="570" alt="lvs" src="https://github.com/user-attachments/assets/4b3129a0-fda1-488b-a069-d65989c85313" />
-<img width="1657" height="496" alt="pex" src="https://github.com/user-attachments/assets/2db37272-1a64-47e4-af32-526953c4bf20" />
-<img width="1681" height="620" alt="post layout sim" src="https://github.com/user-attachments/assets/d0ea752b-2005-4c37-a09b-f63d2720ea06" />
+<img width="1046" height="573" alt="layout drc2" src="https://github.com/user-attachments/assets/3056428d-dd66-4d4a-8379-809ce2cb15a8" />
+<img width="1165" height="556" alt="lvs2" src="https://github.com/user-attachments/assets/dfeaef70-1a6b-491f-baf7-075aa0c8eef9" />
+<img width="813" height="525" alt="tb_2" src="https://github.com/user-attachments/assets/9fc7be1b-0cd3-40b0-9e5e-ee35b416a4a4" />
+<img width="1670" height="576" alt="post layout sim2" src="https://github.com/user-attachments/assets/3a2895b0-9c6d-4ccb-9f30-0472f240ca92" />
 <br>
 
 
@@ -59,5 +59,7 @@ A 9-corner PVT sweep was conducted on the extracted view to verify stability acr
   * **42.5°C:** 62 KHz
   * **125°C:** 51 KHz
 <br>
-<img width="989" height="665" alt="pvt gain" src="https://github.com/user-attachments/assets/e1eca729-9b1b-4d70-9959-3864463df8b0" />
-<img width="761" height="596" alt="pvt phase deg" src="https://github.com/user-attachments/assets/6a428c23-8367-4153-b799-43bd180dd9b0" />
+<img width="1393" height="577" alt="9 point pvt gain" src="https://github.com/user-attachments/assets/8971d0df-9b68-49ac-b901-3af3439e2bd4" />
+<img width="1460" height="580" alt="post layout sim2 phase" src="https://github.com/user-attachments/assets/28d5bce6-1b7d-45bb-8ca9-d761d45d1b9b" />
+
+
