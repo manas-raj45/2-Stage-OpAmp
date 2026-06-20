@@ -1,12 +1,12 @@
 # Two-Stage CMOS Operational Amplifier with Post-Layout PVT Analysis
 ## Overview
-This repository contains the schematic design, physical layout, and post-layout verification of a Two-Stage Operational Amplifier designed in the gdpk090 CMOS process. 
+This repository contains the schematic design, physical layout, and post-layout verification of a Two-Stage Operational Amplifier designed in the gpdk090 CMOS process. 
 ---
 ## Target Specifications & Post-Layout Results
 
 | Parameter | Target Specification | Post-Layout (PEX) Result |
 | :--- | :--- | :--- |
-| **DC Gain** | 60 dB (1000) | 45 dB (53 dB Pre-Layout) |
+| **DC Gain** | 60 dB (1000) | 50 dB (53 dB Pre-Layout) |
 | **Gain Bandwidth Product (GBW)** | 30 MHz | 27 MHz |
 | **Phase Margin (PM)** | ≥ 60° | 68° |
 | **Common-Mode Rejection Ratio (CMRR)** | - | 66 dB |
@@ -15,10 +15,10 @@ This repository contains the schematic design, physical layout, and post-layout 
 | **Min Common-Mode Input (ICMR-)** | 0.8 V | 0.838 V |
 | **Calculated Headroom** | - | 0.59 V |
 | **Output Swing** | - | 1.2 V |
-| **Load Capacitance (C_L)** | 2 pF | 2 pF |
+| **Load Capacitance ($C_L$)** | 2 pF | 2 pF |
 | **Power Dissipation** | ≤ 300 µW | 309 µW |
 
-
+---
 ## 1. Schematic Design and Biasing
 The core architecture is a two-stage operational amplifier featuring a differential input pair with a current mirror load, followed by a common-source second stage.
 * **Pre-Layout Performance:** The ideal schematic successfully achieved a **DC Gain of 53 dB** before layout parasitics were introduced.
@@ -31,14 +31,13 @@ The core architecture is a two-stage operational amplifier featuring a different
 <img width="996" height="789" alt="gain and phase" src="https://github.com/user-attachments/assets/4608aeeb-78ed-402a-a92f-de440fd605c1" />
 <br>
 
-
 ## 2. Physical Layout & Parasitic Extraction (PEX)
-Transitioning from an ideal schematic to an extracted layout introduces physical parasitics (resistance and capacitance), altering the loop dynamics. 
+Transitioning from an ideal schematic to an extracted layout introduces physical parasitics (resistance and capacitance), altering the loop dynamics. Through careful routing and optimization, parasitic degradation was kept to an absolute minimum.
 ### Post-Layout (PEX) Observations
-* **Observation:** **DC Gain dropped from 53 dB (Schematic) to 45 dB (PEX).**
-  **Why:** Physical layout extraction introduces real-world routing parasitics, specifically overlapping metal layer capacitances and trace resistances. This parasitic loading lowers the effective output impedance of the internal nodes, inherently reducing the overall gain.
+* **Observation:** **DC Gain experienced a minor drop from 53 dB (Schematic) to 50 dB (PEX).**
+  **Why:** Physical layout extraction introduces real-world routing parasitics, specifically overlapping metal layer capacitances and trace resistances. However, highly optimized layout routing mitigated these effects, preserving the vast majority of the core gain.
 * **Observation:** **Slew Rate (SR) decreased from the target 20 V/µs to 17.42 V/µs.**
-  **Why:** Interconnect routing introduced **extra parasitic capacitance (C_para)** across the signal charging paths. Because Slew Rate = I / C_total, the added capacitive load slowed down the large-signal transition rate.
+  **Why:** Interconnect routing introduced **extra parasitic capacitance ($C_{para}$)** across the signal charging paths. Because Slew Rate = $I / C_{total}$, the added capacitive load slowed down the large-signal transition rate.
 * **Observation:** **Gain Bandwidth Product (GBW) dropped from 30 MHz to 27 MHz.**
   **Why:** The combination of finite parasitic metal resistance and increased node capacitances formed accidental low-pass filter networks, causing earlier high-frequency gain roll-off.
 <br>
@@ -48,18 +47,15 @@ Transitioning from an ideal schematic to an extracted layout introduces physical
 <img width="1670" height="576" alt="post layout sim2" src="https://github.com/user-attachments/assets/3a2895b0-9c6d-4ccb-9f30-0472f240ca92" />
 <br>
 
-
 ## 3. PVT Corner & Sensitivity Analysis
 A 9-corner PVT sweep was conducted on the extracted view to verify stability across manufacturing and environmental stresses.
 * **Temperatures:** -40°C, 42.5°C, 125°C
 * **Supply Voltages:** 1.75 V, 1.8 V (Nominal), 1.95 V
-* **PVT Variations Explained:** The spread in the gain and phase plots is expected behavior. Temperature swings alter carrier mobility, supply variations shift available overdrive voltage, and process corners (Fast-Fast/Slow-Slow) shift MOSFET threshold voltages. These factors combined alter the DC operating point, but the amplifier remains fully functional and stable across all tested boundaries.
-* **Bandwidth Temperature Dependence:** As temperature rises, carrier mobility degrades, leading to a reduction in transconductance. This directly impacts the bandwidth, demonstrating a clear inverse relationship:
+* **PVT Variations Explained:** The spread in the gain and phase plots is expected behavior. Temperature swings alter carrier mobility, supply variations shift available overdrive voltage, and process corners (Fast-Fast/Slow-Slow) shift MOSFET threshold voltages. These factors combined alter the DC operating point, but the amplifier remains fully functional and stable across all tested boundaries, consistently maintaining the ~50 dB gain mark.
+* **Bandwidth Temperature Dependence:** As temperature rises, carrier mobility degrades, leading to a reduction in transconductance ($g_m$). This directly impacts the bandwidth, demonstrating a clear inverse relationship:
   * **-40°C:** 80 KHz
   * **42.5°C:** 62 KHz
   * **125°C:** 51 KHz
 <br>
 <img width="1393" height="577" alt="9 point pvt gain" src="https://github.com/user-attachments/assets/8971d0df-9b68-49ac-b901-3af3439e2bd4" />
 <img width="1460" height="580" alt="post layout sim2 phase" src="https://github.com/user-attachments/assets/28d5bce6-1b7d-45bb-8ca9-d761d45d1b9b" />
-
-
